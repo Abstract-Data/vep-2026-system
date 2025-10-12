@@ -9,3 +9,4 @@
 [submodule "packages/election-utils"]
 	path = packages/election-utils
 	url = https://github.com/jreakin/jre-election-utils.git
+	branch = main
