@@ -14,3 +14,6 @@
 	path = packages/vep-file-loading
 	url = https://github.com/Abstract-Data/vep-file-loading.git
 	branch = master
+[submodule "packages/state-voterfiles"]
+	path = packages/state-voterfiles
+	url = git+ssh://git@github.com/Abstract-Data/state-voterfiles.git
