@@ -1,0 +1,16 @@
+[project]
+name = "vep-2026-system"
+requires-python = ">=3.11"
+
+[tool.uv]
+managed = true
+
+[tool.uv.workspace]
+# Use a glob so new packages added under packages/ are picked up automatically
+members = ["packages/*"]
+
+# Optional: common dev tools for the workspace
+[dependency-groups.dev]
+pytest = "*"
+ruff = "*"
+mypy = "*"

@@ -1,0 +1,16 @@
+# Python / uv
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.python-version
+.ruff_cache/
+.pytest_cache/
+
+# macOS
+.DS_Store
+
+# IDEs
+.idea/
+.vscode/
