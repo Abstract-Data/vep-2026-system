@@ -10,3 +10,7 @@
 	path = packages/election-utils
 	url = https://github.com/jreakin/jre-election-utils.git
 	branch = main
+[submodule "packages/vep-file-loading"]
+	path = packages/vep-file-loading
+	url = https://github.com/Abstract-Data/vep-file-loading.git
+	branch = master
