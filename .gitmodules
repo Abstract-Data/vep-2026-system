@@ -17,3 +17,6 @@
 [submodule "packages/state-voterfiles"]
 	path = packages/state-voterfiles
 	url = git+ssh://git@github.com/Abstract-Data/state-voterfiles.git
+[submodule "packages/vep-record-matcher"]
+	path = packages/vep-record-matcher
+	url = git+ssh://git@github.com/Abstract-Data/vep-record-matcher.git

@@ -1,5 +1,6 @@
 [project]
 name = "vep-2026-system"
+version = "0.1.0"
 requires-python = ">=3.11"
 
 [tool.uv]
@@ -10,7 +11,5 @@ managed = true
 members = ["packages/*"]
 
 # Optional: common dev tools for the workspace
-[dependency-groups.dev]
-pytest = "*"
-ruff = "*"
-mypy = "*"
+[dependency-groups]
+dev = ["pytest", "ruff", "mypy"]
