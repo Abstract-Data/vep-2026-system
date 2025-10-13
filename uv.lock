@@ -3685,6 +3685,15 @@ wheels = [
 name = "vep-2026-system"
 version = "0.1.0"
 source = { virtual = "." }
+dependencies = [
+    { name = "election-utils" },
+    { name = "sqlmodel" },
+    { name = "state-voterfiles" },
+    { name = "vep-ai-validation-tools" },
+    { name = "vep-file-loading" },
+    { name = "vep-record-matcher" },
+    { name = "vep-validation-tools" },
+]
 
 [package.dev-dependencies]
 dev = [
@@ -3694,6 +3703,15 @@ dev = [
 ]
 
 [package.metadata]
+requires-dist = [
+    { name = "election-utils", editable = "packages/election-utils" },
+    { name = "sqlmodel", specifier = ">=0.0.27" },
+    { name = "state-voterfiles", editable = "packages/state-voterfiles" },
+    { name = "vep-ai-validation-tools", editable = "packages/vep-ai-validation-tools" },
+    { name = "vep-file-loading", editable = "packages/vep-file-loading" },
+    { name = "vep-record-matcher", editable = "packages/vep-record-matcher" },
+    { name = "vep-validation-tools", editable = "packages/vep-validation-tools" },
+]
 
 [package.metadata.requires-dev]
 dev = [
@@ -3874,22 +3892,16 @@ name = "vep-record-matcher"
 version = "0.1.0"
 source = { editable = "packages/vep-record-matcher" }
 dependencies = [
-    { name = "election-utils" },
     { name = "pydantic" },
     { name = "rapidfuzz" },
     { name = "tqdm" },
-    { name = "vep-ai-validation-tools" },
-    { name = "vep-validation-tools" },
 ]
 
 [package.metadata]
 requires-dist = [
-    { name = "election-utils", editable = "packages/election-utils" },
     { name = "pydantic", specifier = ">=2.10.3" },
     { name = "rapidfuzz", specifier = ">=3.10.1" },
     { name = "tqdm", specifier = ">=4.67.1" },
-    { name = "vep-ai-validation-tools", editable = "packages/vep-ai-validation-tools" },
-    { name = "vep-validation-tools", editable = "packages/vep-validation-tools" },
 ]
 
 [[package]]

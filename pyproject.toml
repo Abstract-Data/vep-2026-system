@@ -3,8 +3,26 @@ name = "vep-2026-system"
 version = "0.1.0"
 requires-python = ">=3.11"
 
-[tool.uv]
-managed = true
+dependencies = [
+	"election-utils",
+	"vep-ai-validation-tools",
+	"vep-file-loading",
+	"vep-record-matcher",
+	"vep-validation-tools",
+	"state-voterfiles",
+	"sqlmodel>=0.0.27",
+]
+
+
+
+[tool.uv.sources]
+
+election-utils = { workspace = true }
+vep-ai-validation-tools = { workspace = true }
+vep-file-loading = { workspace = true }
+vep-record-matcher = { workspace = true }
+vep-validation-tools = { workspace = true }
+state-voterfiles = { workspace = true }
 
 [tool.uv.workspace]
 # Use a glob so new packages added under packages/ are picked up automatically
