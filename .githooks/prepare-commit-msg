@@ -39,19 +39,25 @@ if [[ "${MONOREPO_TAG:-0}" == "1" ]]; then
   fi
 fi
 
-# Only prepend if not already tagged (line starts with [something])
-if ! grep -qE '^[[:space:]]*\[[^]]+\]' "$MSG_FILE"; then
-  tmp=$(mktemp)
-  awk -v tag="$TAG" '
-    BEGIN { done=0 }
-    {
-      if (!done && $0 !~ /^[[:space:]]*#/ && length($0) > 0) {
-        print tag $0
-        done=1
-      } else {
-        print $0
-      }
-    }
-  ' "$MSG_FILE" > "$tmp"
-  mv "$tmp" "$MSG_FILE"
+# Determine first non-comment, non-empty line
+first_line=$(awk 'BEGIN{found=0} /^[[:space:]]*#/ {next} /^[[:space:]]*$/ {next} {print; found=1; exit} END{if(!found) print ""}' "$MSG_FILE")
+
+# If the message already starts with our tag, do nothing
+if [[ "$first_line" == "$TAG"* ]]; then
+  exit 0
 fi
+
+# Otherwise, prepend the tag to the first non-comment line
+tmp=$(mktemp)
+awk -v tag="$TAG" '
+  BEGIN { done=0 }
+  {
+    if (!done && $0 !~ /^[[:space:]]*#/ && length($0) > 0) {
+      print tag $0
+      done=1
+    } else {
+      print $0
+    }
+  }
+' "$MSG_FILE" > "$tmp"
+mv "$tmp" "$MSG_FILE"
