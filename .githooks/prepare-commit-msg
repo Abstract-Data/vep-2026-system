@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# Auto-prepend a tag to commit messages.
+# Place this file in .githooks/ and run:
+#   git config core.hooksPath .githooks
+# Ensure it's executable:
+#   chmod +x .githooks/prepare-commit-msg
+
+set -euo pipefail
+
+MSG_FILE="$1"
+COMMIT_SOURCE="${2:-}"
+SHA1="${3:-}"
+
+# Skip for merge or squash commits
+if [[ "$COMMIT_SOURCE" == "merge" || "$COMMIT_SOURCE" == "squash" ]]; then
+  exit 0
+fi
+
+# Default tag. You can change this.
+DEFAULT_TAG="CU-868fyzuq1 - "
+
+# Optionally derive a monorepo-aware tag from staged files under packages/
+# Enable by setting MONOREPO_TAG=1 in your environment or repo config.
+derive_monorepo_tag() {
+  local pkg
+  pkg=$(git diff --cached --name-only | awk -F/ '/^packages\//{print $2; exit}') || true
+  if [[ -n "${pkg:-}" ]]; then
+    echo "[${pkg}] "
+  else
+    echo ""
+  fi
+}
+
+TAG="$DEFAULT_TAG"
+if [[ "${MONOREPO_TAG:-0}" == "1" ]]; then
+  mono_tag=$(derive_monorepo_tag)
+  if [[ -n "$mono_tag" ]]; then
+    TAG="$mono_tag"
+  fi
+fi
+
+# Only prepend if not already tagged (line starts with [something])
+if ! grep -qE '^[[:space:]]*\[[^]]+\]' "$MSG_FILE"; then
+  tmp=$(mktemp)
+  awk -v tag="$TAG" '
+    BEGIN { done=0 }
+    {
+      if (!done && $0 !~ /^[[:space:]]*#/ && length($0) > 0) {
+        print tag $0
+        done=1
+      } else {
+        print $0
+      }
+    }
+  ' "$MSG_FILE" > "$tmp"
+  mv "$tmp" "$MSG_FILE"
+fi
