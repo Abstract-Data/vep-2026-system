@@ -28,3 +28,15 @@ engine = create_engine(SUPABASE_DB)
 public_models.setup(engine)
 raw_voterfile_model.setup(engine)
 raw_target_model.setup(engine)
+
+
+raw_voterfile_model.read_file(
+    engine,
+    file_path="/Users/johneakin/PyCharmProjects/vep-2024/data/voterfiles/texas/texasnovember2024.csv",
+    state_abbreviation="TX",
+    vendor_name="Ryan Data",
+)
+for file in bridge_tree_data.glob("*.csv"):
+    raw_target_model.read_file(
+        engine, file_path=file, state_abbreviation="TX", vendor_name="Bridge Tree"
+    )
